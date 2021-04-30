@@ -1,13 +1,23 @@
 package spring_introduction;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component("player")
+@Scope("prototype")
+@PropertySource("classpath:properties")
 public class Player {
     private String name;
-    @Autowired
+
+
+
     private Team team;
+
+    @Value("${player.age}")
+    private int age;
 
     public Player() {
         System.out.println("Constructor in Player Class");
@@ -21,6 +31,14 @@ public class Player {
         this.name = name;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public Team getTeam() {
         return team;
     }
@@ -29,6 +47,7 @@ public class Player {
         team.anthem();
     }
 
+    @Autowired
     public void setTeam(Team team) {
         this.team = team;
     }
